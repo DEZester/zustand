@@ -17,8 +17,8 @@ const setCount = () => {
 }
 
 function App() {
-    // const count = useCounterStore((state) => state.count) //same as second
-    const {count} = useCounterStore((state) => state) //same as first
+    // const count = useCounterStore((state) => state.count) //same as second (component rerender only on this variable)
+    const {count} = useCounterStore((state) => state) //same as first (component rerender anytime)
     const increment = useCounterStore((state) => state.incrementAsync)
     const decrement = useCounterStore((state) => state.decrementAsync)
 
