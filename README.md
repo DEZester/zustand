@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+# ZUSTAND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small, fast, and scalable bearbones state management solution. Zustand has a comfy API based on hooks. It isn't
+boilerplatey or opinionated, but has enough convention to be explicit and flux-like.
 
-Currently, two official plugins are available:
+- [zustandDoc](https://docs.pmnd.rs/zustand/getting-started/introduction)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## First create a store
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
+Your store is a hook! You can put anything in it: primitives, objects, functions. The set function merges state.
 
 ```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+import {create} from 'zustand'
+
+const useStore = create((set) => ({
+  bears: 0,
+  increasePopulation: () => set((state) => ({bears: state.bears + 1})),
+  removeAllBears: () => set({bears: 0}),
+}))
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Then bind your components, and that's it!
+
+```js
+function BearCounter() {
+  const bears = useStore((state) => state.bears)
+  return <h1>{bears} around here...</h1>
+}
+
+function Controls() {
+  const increasePopulation = useStore((state) => state.increasePopulation)
+  return <button onClick={increasePopulation}>one up</button>
+}
+```
