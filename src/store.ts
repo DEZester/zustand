@@ -6,6 +6,17 @@ type CounterStore = {
     decrement: () => void
 }
 
+/**
+ * A custom counter store for managing count state.
+ *
+ * @typedef {Object} CounterStore
+ * @property {number} count - The current count value.
+ * @property {function} increment - A function for incrementing the count value.
+ * @property {function} decrement - A function for decrementing the count value.
+ *
+ * @param {function} set - A callback function used to update the count state.
+ * @returns {CounterStore} The counter store object.
+ */
 export const useCounterStore = create<CounterStore>((set) => ({
     count: 0,
     increment: () => {
