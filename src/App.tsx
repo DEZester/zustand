@@ -1,9 +1,12 @@
 import './App.css'
+import {useCounterStore} from "./store.ts";
 
 function App() {
+    const count = useCounterStore((state) => state.count)
+
     return (
         <>
-            <div>Hello world</div>
+            <div>{count}</div>
         </>
     )
 }
